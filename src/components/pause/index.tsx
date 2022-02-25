@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Icon } from "@chakra-ui/react";
-import { FiShare2 } from "react-icons/fi";
+import { TiMediaPause } from "react-icons/ti";
 
-export default function Share() {
+export default function Pause() {
   return (
     <Box
       as="button"
@@ -16,9 +16,8 @@ export default function Share() {
       alignItems={"center"}
       backgroundColor={"transparent"}
       borderRadius="50%"
-      zIndex={9999}
       borderColor="#c4c4c4"
-      _hover={{ borderColor: "#ffffff" }}
+      _hover={{ borderColor: "#ffffff" , color: '#ffffff'}}
       _active={{
         bg: "#ffffff",
         transform: "scale(0.98)",
@@ -26,9 +25,9 @@ export default function Share() {
       }}
     >
       <Icon
-        as={FiShare2}
+        as={TiMediaPause}
         fontSize={19}
-        color={"#c4c4c4"}
+        color={"#ffffff"}
         _active={{ color: "#ffffff" }}
       />
     </Box>

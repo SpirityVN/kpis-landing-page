@@ -7,6 +7,8 @@ import Share from "../components/share";
 import styles from "../styles/Home.module.scss";
 import { useEffect, useRef } from "react";
 import WaitingScreen from "../screens/waiting";
+import OverviewScreen from "../screens/overview";
+import ControlPage from "../components/control-page";
 
 const Home: NextPage = () => {
   
@@ -18,8 +20,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-         <WaitingScreen show={true}/>
+      {/* <main className={styles.main}>
+         <WaitingScreen show={false}/>
+      </main> */}
+      <main id="main">
+        
+        <OverviewScreen/>
+        <ControlPage/>
       </main>
     </div>
   );
