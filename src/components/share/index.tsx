@@ -47,14 +47,18 @@ export default function Share() {
       <Box>
         <CircleButton onClick={() => setShow(!show)}>
           <Icon
-            as={!show ? FiShare2: IoMdClose}
+            as={!show ? FiShare2 : IoMdClose}
             fontSize={19}
             color={"#c4c4c4"}
             _active={{ color: "#ffffff" }}
           />
         </CircleButton>
       </Box>
-      <motion.nav initial={false} animate={show ? "open" : "closed"}>
+      <motion.nav
+        initial={false}
+        animate={show ? "open" : "closed"}
+        style={{ zIndex: 9999 }}
+      >
         <motion.ul
           style={{ listStyle: "none" }}
           variants={{

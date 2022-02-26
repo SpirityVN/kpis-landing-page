@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
-
+import styles from "./style.module.scss";
 import Pause from "../../components/pause";
 
 export default function OverviewScreen() {
