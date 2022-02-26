@@ -1,34 +1,17 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
-import Footer from "../../components/footer";
-import Header from "../../components/header";
-import Pause from "../../components/pause";
-type Props = {};
 
-export default function OverviewScreen({}: Props) {
+import Pause from "../../components/pause";
+
+export default function OverviewScreen() {
   return (
-    <div>
-      {/* <Box
-        as={"img"}
-        src="/assets/overview-banner.png"
-        position={"fixed"}
-        top={0}
-        left={0}
-        width={"auto"}
-        minHeight={"100%"}
-        backgroundSize={"conver"}
-        zIndex={-1}
-      /> */}
-      {/* <video autoPlay muted loop id="myVideo">
-        <source src="/assets/Clip.mp4" type="video/mp4" />
-      </video> */}
-      <Header />
+    <div id="screen">
       <motion.div
-        initial={{x: -100, y: 0, opacity: 0}}
-        animate={{x: 0, y: 0, opacity: 1}}
+        initial={{ x: -100, y: 0, opacity: 0 }}
+        animate={{ x: 0, y: 0, opacity: 1 }}
         transition={{
-          duration: 0.9
+          duration: 0.9,
         }}
       >
         <Box padding={10} position={"relative"} top={"25%"} width={"50%"}>
@@ -48,8 +31,8 @@ export default function OverviewScreen({}: Props) {
 
       <Flex
         padding={10}
-        position={"absolute"}
-        top={"65%"}
+        position={"relative"}
+        top={"35%"}
         alignItems="center"
         width={"100%"}
         justifyContent="space-between"
@@ -68,27 +51,25 @@ export default function OverviewScreen({}: Props) {
           </Flex>
         </Box>
         <motion.div
-          
-          initial={{x: 100, y: 0, opacity: 0}}
-          animate={{x: 0, y: 0, opacity: 1}}
+          initial={{ x: 100, y: 0, opacity: 0 }}
+          animate={{ x: 0, y: 0, opacity: 1 }}
           transition={{
-            duration: 0.9
-          }}>
-        <Box>
-          <Text
-            textTransform={"uppercase"}
-            fontWeight="bold"
-            fontSize={48}
-            color={"white"}
-          >
-            king playing in
-          </Text>
-          <Image src="/assets/the-space-stroke.svg" float={"right"} />
-        </Box>
+            duration: 0.9,
+          }}
+        >
+          <Box>
+            <Text
+              textTransform={"uppercase"}
+              fontWeight="bold"
+              fontSize={48}
+              color={"white"}
+            >
+              king playing in
+            </Text>
+            <Image src="/assets/the-space-stroke.svg" float={"right"} />
+          </Box>
         </motion.div>
-       
       </Flex>
-      <Footer />
     </div>
   );
 }

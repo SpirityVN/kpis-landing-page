@@ -9,7 +9,24 @@ import { useEffect, useRef, useState } from "react";
 import WaitingScreen from "../screens/waiting";
 import OverviewScreen from "../screens/overview";
 import ControlPage from "../components/control-page";
-
+import ReactPageScroller from "../lib";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import { Page } from "../types";
+const PageProps: Page[] = [
+  {
+    id: 0,
+    title: "overview",
+  },
+  {
+    id: 1,
+    title: "backed by",
+  },
+  {
+    id: 2,
+    title: "our team",
+  },
+];
 const Home: NextPage = () => {
   const [show, setShow] = useState(false);
   // useEffect(() => {
@@ -17,6 +34,14 @@ const Home: NextPage = () => {
   //     setShow(false);
   //   }, 10000);
   // }, []);
+  const [currentPage, setCurrentPage] = useState(0);
+  const handlePageChange = (number: any) => {
+    setCurrentPage(number);
+  };
+  const handleBeforePageChange = (number: any) => {
+    setCurrentPage(number);
+  };
+
   return (
     <div>
       <Head>
@@ -32,8 +57,23 @@ const Home: NextPage = () => {
       )}
       {!show && (
         <main id="main">
-          <OverviewScreen />
-          <ControlPage />
+          <Header />
+          <ReactPageScroller
+            pageOnChange={handlePageChange}
+            customPageNumber={currentPage}
+            onBeforePageScroll={handleBeforePageChange}
+          >
+            <OverviewScreen />
+            <div id="screen">123</div>
+            <div id="screen">123123123</div>
+          </ReactPageScroller>
+          <Footer />
+
+          <ControlPage
+            handlePageChange={handlePageChange}
+            page={PageProps}
+            currentPage={currentPage}
+          />
         </main>
       )}
     </div>

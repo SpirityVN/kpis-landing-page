@@ -1,52 +1,20 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { Page } from "../../types";
 import styles from "./style.module.scss";
 
 // const Page = ["overview", "backed by", "our team"];
-type Page = {
-  id: number;
-  title: string;
-  active: boolean;
-};
-const PageProps: Page[] = [
-  {
-    id: 0,
-    title: "overview",
-    active: true,
-  },
-  {
-    id: 1,
-    title: "backed by",
-    active: false,
-  },
-  {
-    id: 2,
-    title: "our team",
-    active: false,
-  },
-];
 
-export default function ControlPage() {
-  const [page, selectPage] = useState(PageProps);
-  const handleSelectPage = (target: Page) => {
-    try {
-      let prevPage = page.find((value) => value.active === true);
 
-      if (prevPage) {
-        let indexOfPrevPage = page.indexOf(prevPage);
-        page[indexOfPrevPage].active = false;
-      }
-      let currentPage = page.find((value) => value.id === target.id);
-      if (currentPage) {
-        let indexOfCurrentPage = page.indexOf(currentPage);
-        page[indexOfCurrentPage].active = true;
-      }
-      selectPage([...page]);
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
+interface Props {
+  page: Page[]
+  currentPage: number
+  handlePageChange(number: number | string | undefined): void;
+}
+
+export default function ControlPage({ page, currentPage, handlePageChange }: Props) {
+  
   return (
     <Box position={"absolute"} top={"40%"}>
       <VStack spacing={3} align="stretch" padding={10}>
@@ -54,16 +22,16 @@ export default function ControlPage() {
           return (
             <Flex alignItems={"center"} gap={28} key={index}>
               <motion.div
-                onClick={() => handleSelectPage(value)}
+                onClick={() => handlePageChange(value.id)}
                 className={styles.section}
                 whileHover={{ width: 100 }}
                 animate={{
-                  width: value.active ? 100 : 50,
-                  backgroundColor: value.active ? "#ffffff" : "#c4c4c4",
-                  opacity: value.active ? 1 : 0.5,
+                  width: value.id === currentPage ? 100 : 50,
+                  backgroundColor: value.id === currentPage ? "#ffffff" : "#c4c4c4",
+                  opacity: value.id === currentPage ? 1 : 0.5,
                 }}
               />
-              {value.active && (
+              {value.id === currentPage && (
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
