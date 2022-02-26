@@ -1,4 +1,5 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import React from "react";
 import Footer from "../../components/footer";
 import Header from "../../components/header";
@@ -19,24 +20,32 @@ export default function OverviewScreen({}: Props) {
         backgroundSize={"conver"}
         zIndex={-1}
       /> */}
-      <video autoPlay muted loop id="myVideo">
+      {/* <video autoPlay muted loop id="myVideo">
         <source src="/assets/Clip.mp4" type="video/mp4" />
-      </video>
+      </video> */}
       <Header />
+      <motion.div
+        initial={{x: -100, y: 0, opacity: 0}}
+        animate={{x: 0, y: 0, opacity: 1}}
+        transition={{
+          duration: 0.9
+        }}
+      >
+        <Box padding={10} position={"relative"} top={"20%"}>
+          <Text
+            textTransform={"uppercase"}
+            fontWeight={"bold"}
+            fontSize={18}
+            color={"white"}
+          >
+            Smart contract
+          </Text>
+          <Text fontSize={13} fontWeight={500}>
+            0x5E232d2DC21070269b...8F3920A6e69b032
+          </Text>
+        </Box>
+      </motion.div>
 
-      <Box padding={10} position={"absolute"} top={"20%"}>
-        <Text
-          textTransform={"uppercase"}
-          fontWeight={"bold"}
-          fontSize={18}
-          color={"white"}
-        >
-          Smart contract
-        </Text>
-        <Text fontSize={13} fontWeight={500}>
-          0x5E232d2DC21070269b...8F3920A6e69b032
-        </Text>
-      </Box>
       <Flex
         padding={10}
         position={"absolute"}
@@ -58,6 +67,13 @@ export default function OverviewScreen({}: Props) {
             <Image src="/assets/video3.png" />
           </Flex>
         </Box>
+        <motion.div
+          
+          initial={{x: 100, y: 0, opacity: 0}}
+          animate={{x: 0, y: 0, opacity: 1}}
+          transition={{
+            duration: 0.9
+          }}>
         <Box>
           <Text
             textTransform={"uppercase"}
@@ -69,6 +85,8 @@ export default function OverviewScreen({}: Props) {
           </Text>
           <Image src="/assets/the-space-stroke.svg" float={"right"} />
         </Box>
+        </motion.div>
+       
       </Flex>
       <Footer />
     </div>

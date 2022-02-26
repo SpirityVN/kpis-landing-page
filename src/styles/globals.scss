@@ -2,19 +2,22 @@
 
 html,
 body {
-  height: 100%;
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 #main {
   background-color: black;
   height: 100vh;
   color: #C4C4C4;
+  overflow:hidden;
 }
-* {
-  box-sizing: border-box;
-  // color: white;
-}
+// * {
+
+//   // color: white;
+// }
 #myVideo {
   position: absolute;
   right: 0;
