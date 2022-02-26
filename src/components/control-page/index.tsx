@@ -52,7 +52,7 @@ export default function ControlPage() {
       <VStack spacing={3} align="stretch" padding={10}>
         {page.map((value: Page, index: number) => {
           return (
-            <Flex alignItems={"center"} gap={28}>
+            <Flex alignItems={"center"} gap={28} key={index}>
               <motion.div
                 onClick={() => handleSelectPage(value)}
                 className={styles.section}

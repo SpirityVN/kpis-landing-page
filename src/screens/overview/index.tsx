@@ -31,7 +31,7 @@ export default function OverviewScreen({}: Props) {
           duration: 0.9
         }}
       >
-        <Box padding={10} position={"relative"} top={"20%"}>
+        <Box padding={10} position={"relative"} top={"25%"} width={"50%"}>
           <Text
             textTransform={"uppercase"}
             fontWeight={"bold"}
