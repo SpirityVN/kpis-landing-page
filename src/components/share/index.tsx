@@ -43,7 +43,7 @@ const SocialNetwork = [
 export default function Share() {
   const [show, setShow] = useState(false);
   return (
-    <VStack spacing={4} align="stretch">
+    <VStack spacing={4} align="stretch" zIndex={9999}>
       <Box>
         <CircleButton onClick={() => setShow(!show)}>
           <Icon
@@ -54,11 +54,7 @@ export default function Share() {
           />
         </CircleButton>
       </Box>
-      <motion.nav
-        initial={false}
-        animate={show ? "open" : "closed"}
-        style={{ zIndex: 9999 }}
-      >
+      <motion.nav initial={false} animate={show ? "open" : "closed"}>
         <motion.ul
           style={{ listStyle: "none" }}
           variants={{

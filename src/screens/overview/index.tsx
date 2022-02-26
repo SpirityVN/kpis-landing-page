@@ -4,9 +4,12 @@ import React from "react";
 import styles from "./style.module.scss";
 import Pause from "../../components/pause";
 
-export default function OverviewScreen() {
+interface Props {
+  hidden: boolean;
+}
+export default function OverviewScreen({ hidden }: Props) {
   return (
-    <div id="screen">
+    <div id="screen" className={hidden ? "active-hidden" : ""}>
       <motion.div
         initial={{ x: -100, y: 0, opacity: 0 }}
         animate={{ x: 0, y: 0, opacity: 1 }}

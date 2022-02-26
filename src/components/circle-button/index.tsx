@@ -20,7 +20,6 @@ export default function CircleButton({ children, onClick }: Props) {
       alignItems={"center"}
       backgroundColor={"transparent"}
       borderRadius="50%"
-      zIndex={9999}
       onClick={onClick}
       borderColor="#c4c4c4"
       _hover={{ borderColor: "#ffffff" }}

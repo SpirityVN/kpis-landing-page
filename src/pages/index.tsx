@@ -55,7 +55,7 @@ const Home: NextPage = () => {
         </main>
       )}
       {!show && (
-        <main id="main" >
+        <main id="main">
           <div className="lines">
             <div className="line"></div>
             <div className="line"></div>
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
             customPageNumber={currentPage}
             onBeforePageScroll={handleBeforePageChange}
           >
-            <OverviewScreen />
+            <OverviewScreen hidden={currentPage !== 0 ? true : false} />
             <div id="screen">123</div>
           </ReactPageScroller>
           <Footer />
