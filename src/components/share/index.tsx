@@ -94,7 +94,7 @@ export default function Share() {
                   <Icon
                     as={value.icon}
                     fontSize={19}
-                    color={"#c4c4c4"}
+                    color={"#ffffff"}
                     _active={{ color: "#ffffff" }}
                   />
                 </CircleButton>

@@ -1,4 +1,4 @@
-import { Icon } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { LogoWhite } from "../assets/icons";
@@ -15,6 +15,7 @@ import Footer from "../components/footer";
 import { Page } from "../types";
 import OurTeamScreen from "../screens/our-team";
 import ComingSoonScreen from "../screens/coming-soon";
+import { Parallax, ParallaxBanner } from "react-scroll-parallax";
 const PageProps: Page[] = [
   {
     id: 0,
@@ -53,29 +54,59 @@ const Home: NextPage = () => {
         </main>
       )}
       {!show && (
-        <main id="main">
-          <div className="lines">
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-          </div>
-          <Header />
-          <ReactPageScroller
-            pageOnChange={handlePageChange}
-            customPageNumber={currentPage}
-            onBeforePageScroll={handleBeforePageChange}
+        <Box height={"100vh"}>
+          <Box
+            position={"absolute"}
+            top={0}
+            left={0}
+            zIndex={0}
+            width={"100%"}
+            height={"100vh"}
+            overflow={"hidden"}
           >
-            <OverviewScreen hidden={currentPage !== 0 ? true : false} />
-            <ComingSoonScreen hidden={currentPage !== 1 ? true : false} />
-          </ReactPageScroller>
-          <Footer />
-
-          <ControlPage
-            handlePageChange={handlePageChange}
-            page={PageProps}
-            currentPage={currentPage}
+            <video
+              id="myVideo"
+              autoPlay
+              loop
+              muted
+              src="/assets/overview-clip.mp4"
+            />
+          </Box>
+          <Box
+            position={"absolute"}
+            top={0}
+            left={0}
+            zIndex={0}
+            width={"100%"}
+            height={"100vh"}
+            backgroundColor={"black"}
+            opacity={0.5}
           />
-        </main>
+
+          <main id="main">
+            <div className="lines">
+              <div className="line"></div>
+              <div className="line"></div>
+              <div className="line"></div>
+            </div>
+            <Header />
+            <ReactPageScroller
+              pageOnChange={handlePageChange}
+              customPageNumber={currentPage}
+              onBeforePageScroll={handleBeforePageChange}
+            >
+              <OverviewScreen hidden={currentPage !== 0 ? true : false} />
+              <ComingSoonScreen hidden={currentPage !== 1 ? true : false} />
+            </ReactPageScroller>
+            <Footer />
+
+            <ControlPage
+              handlePageChange={handlePageChange}
+              page={PageProps}
+              currentPage={currentPage}
+            />
+          </main>
+        </Box>
       )}
     </div>
   );

@@ -1,7 +1,19 @@
 .main {
-  background-color: #0F0E0E;
+  background-color: #0f0e0e;
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 .background {
-  background-image: url('/assets/overview-banner.png');
+  background-image: url("/assets/overview-banner.png");
+  width: 30px;
+  height: 30px;
 }
-
+.active {
+  animation: fade-out 1s;
+}

@@ -2,6 +2,7 @@ import { Box, Grid, GridItem, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import { LogoGray, LogoWhite } from "../../assets/icons";
 import ApplyWhitelist from "../apply-whitelist";
+import BuyESPACE from "../buy-espace";
 import Share from "../share";
 
 export default function Header() {
@@ -16,6 +17,15 @@ export default function Header() {
           _hover={{ color: "white" }}
         >
           Marketplace
+        </Text>
+        <Text
+          cursor={"pointer"}
+          transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+          fontSize={16}
+          zIndex={9999}
+          _hover={{ color: "white" }}
+        >
+          Staking
         </Text>
         <Text
           cursor={"pointer"}
@@ -41,7 +51,7 @@ export default function Header() {
         justifyContent={"flex-end"}
         gap={6}
       >
-        <ApplyWhitelist />
+        <BuyESPACE/>
         <Share />
       </GridItem>
     </Grid>
