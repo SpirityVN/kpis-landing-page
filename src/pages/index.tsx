@@ -1,11 +1,8 @@
-import { Box, Icon } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { LogoWhite } from "../assets/icons";
-import Share from "../components/share";
-
 import styles from "../styles/Home.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect } from "react";
 import WaitingScreen from "../screens/waiting";
 import OverviewScreen from "../screens/overview";
 import ControlPage from "../components/control-page";
@@ -13,9 +10,9 @@ import ReactPageScroller from "../lib";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Page } from "../types";
-import OurTeamScreen from "../screens/our-team";
 import ComingSoonScreen from "../screens/coming-soon";
-import { Parallax, ParallaxBanner } from "react-scroll-parallax";
+import StoryScreen from "../screens/story";
+import { isBrowser } from "react-device-detect";
 const PageProps: Page[] = [
   {
     id: 0,
@@ -23,11 +20,15 @@ const PageProps: Page[] = [
   },
   {
     id: 1,
+    title: "story",
+  },
+  {
+    id: 2,
     title: "our team",
   },
 ];
 const Home: NextPage = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(0);
   const handlePageChange = (number: any) => {
@@ -36,8 +37,19 @@ const Home: NextPage = () => {
   const handleBeforePageChange = (number: any) => {
     setCurrentPage(number);
   };
+  useEffect(() => {
+    let isSubcribled = true;
+    if (show && isSubcribled) {
+      setTimeout(() => {
+        setShow(false);
+      }, 8000);
+    }
+    return () => {
+      isSubcribled = false;
+    }
+  }, []);
 
-  return (
+  return isBrowser ? (
     <div>
       <Head>
         <title>King playing in the space</title>
@@ -63,6 +75,7 @@ const Home: NextPage = () => {
             width={"100%"}
             height={"100vh"}
             overflow={"hidden"}
+            hidden={currentPage === 1 ? true : false}
           >
             <video
               id="myVideo"
@@ -96,7 +109,8 @@ const Home: NextPage = () => {
               onBeforePageScroll={handleBeforePageChange}
             >
               <OverviewScreen hidden={currentPage !== 0 ? true : false} />
-              <ComingSoonScreen hidden={currentPage !== 1 ? true : false} />
+              <StoryScreen hidden={currentPage !== 1 ? true : false} />
+              <ComingSoonScreen hidden={currentPage !== 2 ? true : false} />
             </ReactPageScroller>
             <Footer />
 
@@ -109,6 +123,18 @@ const Home: NextPage = () => {
         </Box>
       )}
     </div>
+  ) : (
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      width={"100%"}
+      height={"100vh"}
+      textAlign={"center"}
+      padding={10}
+    >
+      <Text> Sorry, We're trying to build the interface for mobile device</Text>
+    </Box>
   );
 };
 
