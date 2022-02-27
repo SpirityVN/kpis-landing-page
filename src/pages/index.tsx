@@ -13,6 +13,8 @@ import ReactPageScroller from "../lib";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Page } from "../types";
+import OurTeamScreen from "../screens/our-team";
+import ComingSoonScreen from "../screens/coming-soon";
 const PageProps: Page[] = [
   {
     id: 0,
@@ -22,10 +24,6 @@ const PageProps: Page[] = [
     id: 1,
     title: "our team",
   },
-  // {
-  //   id: 2,
-  //   title: "our team",
-  // },
 ];
 const Home: NextPage = () => {
   const [show, setShow] = useState(false);
@@ -68,7 +66,7 @@ const Home: NextPage = () => {
             onBeforePageScroll={handleBeforePageChange}
           >
             <OverviewScreen hidden={currentPage !== 0 ? true : false} />
-            <div id="screen">123</div>
+            <ComingSoonScreen hidden={currentPage !== 1 ? true : false} />
           </ReactPageScroller>
           <Footer />
 
