@@ -133,7 +133,7 @@ const Home: NextPage = () => {
       textAlign={"center"}
       padding={10}
     >
-      <Text> Sorry, We're trying to build the interface for mobile device</Text>
+      <Text> Sorry, We&apos;re trying to build the interface for mobile device</Text>
     </Box>
   );
 };
