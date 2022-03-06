@@ -20,13 +20,26 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import React from "react";
+import { useMetaMask } from "metamask-react";
+import React, { useEffect, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
+import useContract from "../../hooks/use-contract";
+import { wei2ether } from "../../utils";
+import BuyTurn from "./components/buy-turn";
 import ConnectWallet from "./components/connect-wallet";
 import Game from "./components/game";
 type Props = {};
 
 export default function MiniGameScreen() {
+  const { account, chainId, status } = useMetaMask();
+  const {
+    minesweeperContract,
+    priceOfTurn,
+    turnOfAccount,
+    updateTurnOfAccount,
+    totalSupply
+  } = useContract({ status: status, account: account });
+
   return (
     <Grid templateColumns="repeat(3, 1fr)" height={"100%"} padding={10}>
       <GridItem
@@ -55,7 +68,7 @@ export default function MiniGameScreen() {
           alignItems={"flex-end"}
           height={"100%"}
         >
-          <ConnectWallet/>
+          <ConnectWallet />
 
           <Box
             borderWidth="1px"
@@ -68,15 +81,13 @@ export default function MiniGameScreen() {
           >
             <Stat color={"white"}>
               <StatLabel>You have</StatLabel>
-              <StatNumber>10 TURNS</StatNumber>
+              <StatNumber>{turnOfAccount} TURNS</StatNumber>
             </Stat>
-            <Button
-              leftIcon={<FaShoppingBag />}
-              colorScheme="pink"
-              variant="solid"
-            >
-              Buy turn
-            </Button>
+            <BuyTurn
+              priceOfTurn={priceOfTurn}
+              minesweeperContract={minesweeperContract}
+              updateTurnOfAccount={updateTurnOfAccount}
+            />
           </Box>
           <Box
             borderWidth="1px"
@@ -88,7 +99,7 @@ export default function MiniGameScreen() {
           >
             <Stat color={"white"}>
               <StatLabel>Total supply</StatLabel>
-              <StatNumber>10000 BNB</StatNumber>
+              <StatNumber>{wei2ether(totalSupply)} BNB</StatNumber>
             </Stat>
             <Image src="/assets/dizzy-face.svg" width={"50px"} />
           </Box>
@@ -127,7 +138,9 @@ export default function MiniGameScreen() {
                 <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
 
                 <Stack spacing={0}>
-                  <Text fontSize={12} letterSpacing={0.5}>0x1e3e...daqe</Text>
+                  <Text fontSize={12} letterSpacing={0.5}>
+                    0x1e3e...daqe
+                  </Text>
                   <Text fontSize={13} fontWeight={"medium"}>
                     you have received 1% of the total supply
                   </Text>
