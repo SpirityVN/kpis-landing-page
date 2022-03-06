@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { FaShoppingBag } from "react-icons/fa";
+import ConnectWallet from "./components/connect-wallet";
 import Game from "./components/game";
 type Props = {};
 
@@ -54,32 +55,7 @@ export default function MiniGameScreen() {
           alignItems={"flex-end"}
           height={"100%"}
         >
-          <Box
-            as="button"
-            height="50px"
-            minWidth={"192px"}
-            lineHeight="1.2"
-            transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-            border="2px"
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            backgroundColor={"transparent"}
-            color={"white"}
-            borderRadius="lg"
-            zIndex={9999}
-            borderColor="#c4c4c4"
-            _hover={{ borderColor: "#ffffff", color: "white" }}
-            _active={{
-              bg: "#ffffff",
-              transform: "scale(0.98)",
-              borderColor: "#ffffff",
-            }}
-          >
-            <Text textTransform={"uppercase"} fontSize={14}>
-              Connect Wallet
-            </Text>
-          </Box>
+          <ConnectWallet/>
 
           <Box
             borderWidth="1px"
@@ -151,7 +127,7 @@ export default function MiniGameScreen() {
                 <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
 
                 <Stack spacing={0}>
-                  <Text fontSize={12}>0x123e...daqe</Text>
+                  <Text fontSize={12} letterSpacing={0.5}>0x1e3e...daqe</Text>
                   <Text fontSize={13} fontWeight={"medium"}>
                     you have received 1% of the total supply
                   </Text>
