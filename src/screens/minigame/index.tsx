@@ -37,7 +37,7 @@ export default function MiniGameScreen() {
     priceOfTurn,
     turnOfAccount,
     updateTurnOfAccount,
-    totalSupply
+    totalSupply,
   } = useContract({ status: status, account: account });
 
   return (
@@ -69,7 +69,6 @@ export default function MiniGameScreen() {
           height={"100%"}
         >
           <ConnectWallet />
-
           <Box
             borderWidth="1px"
             borderRadius="lg"
@@ -81,13 +80,14 @@ export default function MiniGameScreen() {
           >
             <Stat color={"white"}>
               <StatLabel>You have</StatLabel>
-              <StatNumber>{turnOfAccount} TURNS</StatNumber>
+
+              <StatNumber>{turnOfAccount ? turnOfAccount : '_._'} TURNS</StatNumber>
             </Stat>
-            <BuyTurn
+            {account && <BuyTurn
               priceOfTurn={priceOfTurn}
               minesweeperContract={minesweeperContract}
               updateTurnOfAccount={updateTurnOfAccount}
-            />
+            />}
           </Box>
           <Box
             borderWidth="1px"
@@ -135,7 +135,8 @@ export default function MiniGameScreen() {
                 alignItems={"center"}
                 gap={4}
               >
-                <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+                
+                <Avatar src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`} />
 
                 <Stack spacing={0}>
                   <Text fontSize={12} letterSpacing={0.5}>

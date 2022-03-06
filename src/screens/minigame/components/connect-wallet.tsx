@@ -1,10 +1,13 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Icon, Text, Image, Avatar } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useMetaMask } from "metamask-react";
 import { beautifyAddress } from "../../../utils";
+import { createAvatar } from "@dicebear/avatars";
+import * as style from "@dicebear/croodles-neutral";
 
 export default function ConnectWallet() {
   const { status, connect, account } = useMetaMask();
+
   return (
     <Button
       isLoading={status === "connecting" ? true : false}
@@ -33,6 +36,12 @@ export default function ConnectWallet() {
         outline: 0,
       }}
     >
+      {status === "connected" && <Avatar
+        src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`}
+        size={'xs'}
+        left={"-10px"}
+      
+      />}
       <Text fontSize={14}>
         {status === "notConnected" && "CONNECT WALLET"}
         {status === "unavailable" && "MetaMask not available "}

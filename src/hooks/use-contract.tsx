@@ -7,13 +7,13 @@ type Props = {
   status: any;
   account: any;
 };
-const MINESWEEPER_CONTRACT = "0x1eB3b4ecb77F504156e0710E42AbCFBb3ce6001b";
+const MINESWEEPER_CONTRACT = "0x65fa3ccEd20Ca0f60bEcAb3C3d9546d289F67a64";
 export default function useContract({ status, account }: Props) {
   const [minesweeperContract, setMinesweeperContract] = useState<
     Minesweeper | undefined
   >(undefined);
   const [priceOfTurn, setPriceOfTurn] = useState<any>(undefined);
-  const [turnOfAccount, setTurnOfAccount] = useState<number | undefined>(0);
+  const [turnOfAccount, setTurnOfAccount] = useState<number | undefined>(undefined);
   const [totalSupply, setTotalSupply] = useState<BigNumberish | undefined>(
     undefined
   );
