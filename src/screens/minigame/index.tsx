@@ -35,24 +35,30 @@ type Props = {};
 
 export default function MiniGameScreen() {
   const { account, status } = useMetaMask();
-  const [socket, setSocket] = useState<Socket>();
+  const [socket, setSocket] = useState<Socket | undefined>();
   const [totalSupply, setTotalSupply] = useState<string | undefined>("0");
+  const [wasOpen, setWasOpen] = useState<number[] | undefined>([]);
   const toast = useToast();
   const {
     minesweeperContract,
     priceOfTurn,
     turnOfAccount,
     updateTurnOfAccount,
-  } = useContract({ status: status, account: account });
+  } = useContract(account as string);
 
-  const updateCell = (payload: any) => {};
+  const updateCell = (payload: any) => {
+    setWasOpen(payload?.was_open);
+  };
   const updateHistory = (payload: any) => {};
-  const updateTotalSupply = (payload: any) => {};
+  const updateTotalSupply = (payload: any) => {
+    setTotalSupply(payload.balance);
+  };
   const _getData = async () => {
     try {
       let response = await getMiniGameCommon();
       if (response) {
         setTotalSupply(response?.total_supply);
+        setWasOpen(response?.was_open);
       }
     } catch (err: any) {
       toast({
@@ -93,7 +99,12 @@ export default function MiniGameScreen() {
         >
           Minesweeper 100
         </Text>
-        <Game />
+        <Game
+          wasOpen={wasOpen}
+          socket={socket}
+          minesweeperContract={minesweeperContract}
+          updateTurnOfAccount={updateTurnOfAccount}
+        />
       </GridItem>
       <GridItem colSpan={1}>
         <VStack
@@ -124,6 +135,7 @@ export default function MiniGameScreen() {
                 priceOfTurn={priceOfTurn}
                 minesweeperContract={minesweeperContract}
                 updateTurnOfAccount={updateTurnOfAccount}
+                socket={socket}
               />
             )}
           </Box>

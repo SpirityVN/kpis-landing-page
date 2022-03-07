@@ -3,17 +3,16 @@ import { Minesweeper__factory } from "../contracts/factories/Minesweeper__factor
 import { Minesweeper } from "../contracts/Minesweeper";
 import { BigNumberish, ethers } from "ethers";
 
-type Props = {
-  status: any;
-  account: any;
-};
 const MINESWEEPER_CONTRACT = "0x65fa3ccEd20Ca0f60bEcAb3C3d9546d289F67a64";
-export default function useContract({ status, account }: Props) {
+
+export default function useContract(account: string) {
   const [minesweeperContract, setMinesweeperContract] = useState<
     Minesweeper | undefined
   >(undefined);
   const [priceOfTurn, setPriceOfTurn] = useState<any>(undefined);
-  const [turnOfAccount, setTurnOfAccount] = useState<number | undefined>(undefined);
+  const [turnOfAccount, setTurnOfAccount] = useState<number | undefined>(
+    undefined
+  );
   const [totalSupply, setTotalSupply] = useState<BigNumberish | undefined>(
     undefined
   );
@@ -37,11 +36,10 @@ export default function useContract({ status, account }: Props) {
     setTotalSupply(_totalSupply);
   };
   React.useEffect(() => {
-    if (status && account) {
-      // let _contract = Minesweeper__factory.connect(MINESWEEPER_CONTRACT, )
+    if (account) {
       initialize();
     }
-  }, [status, account]);
+  }, [account]);
   return {
     minesweeperContract,
     priceOfTurn,

@@ -36,12 +36,13 @@ export default function ConnectWallet() {
         outline: 0,
       }}
     >
-      {status === "connected" && <Avatar
-        src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`}
-        size={'xs'}
-        left={"-10px"}
-      
-      />}
+      {status === "connected" && (
+        <Avatar
+          src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`}
+          size={"xs"}
+          left={"-10px"}
+        />
+      )}
       <Text fontSize={14}>
         {status === "notConnected" && "CONNECT WALLET"}
         {status === "unavailable" && "MetaMask not available "}

@@ -5,6 +5,7 @@ type Props = {
   isOpen: boolean;
   itemId?: number;
   value: number;
+  onClick: any;
 };
 
 enum ItemID {}
@@ -26,13 +27,13 @@ const generateItem = (itemId: number | undefined) => {
       break;
   }
 };
-export default function Cell({ isOpen, itemId, value }: Props) {
+export default function Cell({ isOpen, itemId, value, onClick }: Props) {
   return !isOpen ? (
     <Box
       borderRadius={18}
       width={50}
       height={50}
-      onClick={() => console.log(value)}
+      onClick={onClick}
       background={"linear-gradient(225deg, #2b2f38, #24282f);"}
       boxShadow={"-5px 5px 12px #22252c, 5px -5px 12px #2e333c;"}
       _active={{

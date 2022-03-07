@@ -20,6 +20,7 @@ import { BigNumberish, ethers } from "ethers";
 import { useMetaMask } from "metamask-react";
 import React, { useState } from "react";
 import { FaCoins, FaShoppingBag } from "react-icons/fa";
+import { Socket } from "socket.io-client";
 import { Minesweeper } from "../../../contracts/Minesweeper";
 import useContract from "../../../hooks/use-contract";
 import { wei2ether } from "../../../utils";
@@ -28,12 +29,14 @@ type Props = {
   priceOfTurn: BigNumberish;
   minesweeperContract: Minesweeper | undefined;
   updateTurnOfAccount: any;
+  socket: Socket | undefined;
 };
 
 export default function BuyTurn({
   priceOfTurn,
   minesweeperContract,
   updateTurnOfAccount,
+  socket,
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [turn, setTurn] = useState<number>(0);
@@ -53,6 +56,7 @@ export default function BuyTurn({
       let txr = await tx?.wait();
       if (txr) {
         updateTurnOfAccount();
+        socket?.emit("SEND_TOTAL_SUPPLY", { eventId: 1 });
         setLoading(false);
       }
     } catch (error: any) {
