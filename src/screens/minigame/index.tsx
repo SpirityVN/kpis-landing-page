@@ -16,6 +16,7 @@ import {
   StatLabel,
   StatNumber,
   Text,
+  useToast,
   VStack,
   Wrap,
   WrapItem,
@@ -28,17 +29,50 @@ import { wei2ether } from "../../utils";
 import BuyTurn from "./components/buy-turn";
 import ConnectWallet from "./components/connect-wallet";
 import Game from "./components/game";
+import SocketIOClient, { Socket } from "socket.io-client";
+import { baseUrl, getMiniGameCommon } from "./services/api.service";
 type Props = {};
 
 export default function MiniGameScreen() {
-  const { account, chainId, status } = useMetaMask();
+  const { account, status } = useMetaMask();
+  const [socket, setSocket] = useState<Socket>();
+  const [totalSupply, setTotalSupply] = useState<string | undefined>("0");
+  const toast = useToast();
   const {
     minesweeperContract,
     priceOfTurn,
     turnOfAccount,
     updateTurnOfAccount,
-    totalSupply,
   } = useContract({ status: status, account: account });
+
+  const updateCell = (payload: any) => {};
+  const updateHistory = (payload: any) => {};
+  const updateTotalSupply = (payload: any) => {};
+  const _getData = async () => {
+    try {
+      let response = await getMiniGameCommon();
+      if (response) {
+        setTotalSupply(response?.total_supply);
+      }
+    } catch (err: any) {
+      toast({
+        title: "Network error.",
+        description: err.message,
+        status: "error",
+      });
+    }
+  };
+  React.useEffect(() => {
+    let socket = SocketIOClient(baseUrl, {
+      transports: ["websocket", "polling"],
+    });
+    // socket.emit("PING_PONG", {value: 123})
+    _getData();
+    socket.on("RECEIVER_OPEN_CELL", updateCell);
+    socket.on("RECEIVER_HISTORY", updateHistory);
+    socket.on("RECEIVER_TOTAL_SUPPLY", updateTotalSupply);
+    setSocket(socket);
+  }, []);
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" height={"100%"} padding={10}>
@@ -81,13 +115,17 @@ export default function MiniGameScreen() {
             <Stat color={"white"}>
               <StatLabel>You have</StatLabel>
 
-              <StatNumber>{turnOfAccount ? turnOfAccount : '_._'} TURNS</StatNumber>
+              <StatNumber>
+                {turnOfAccount ? turnOfAccount : "_._"} TURNS
+              </StatNumber>
             </Stat>
-            {account && <BuyTurn
-              priceOfTurn={priceOfTurn}
-              minesweeperContract={minesweeperContract}
-              updateTurnOfAccount={updateTurnOfAccount}
-            />}
+            {account && (
+              <BuyTurn
+                priceOfTurn={priceOfTurn}
+                minesweeperContract={minesweeperContract}
+                updateTurnOfAccount={updateTurnOfAccount}
+              />
+            )}
           </Box>
           <Box
             borderWidth="1px"
@@ -135,8 +173,9 @@ export default function MiniGameScreen() {
                 alignItems={"center"}
                 gap={4}
               >
-                
-                <Avatar src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`} />
+                <Avatar
+                  src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`}
+                />
 
                 <Stack spacing={0}>
                   <Text fontSize={12} letterSpacing={0.5}>
