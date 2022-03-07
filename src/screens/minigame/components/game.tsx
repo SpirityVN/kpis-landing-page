@@ -1,5 +1,5 @@
 import { Stack, useToast, VStack, Wrap, WrapItem } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { Socket } from "socket.io-client";
 import { Minesweeper } from "../../../contracts/Minesweeper";
 import Cell from "./cell-game";
@@ -20,8 +20,10 @@ export default function Game({
   updateTurnOfAccount,
 }: Props) {
   const toast = useToast();
+  const [target, setTarget] = useState<number>(-1);
   const handleOpen = async (key: number) => {
     try {
+      setTarget(key);
       let tx = await minesweeperContract?.openCell(key);
       let txr = await tx?.wait();
       if (txr) {
@@ -34,6 +36,7 @@ export default function Game({
           event: openCellEvent,
         });
         updateTurnOfAccount();
+        setTarget(-1);
       }
     } catch (error: any) {
       toast({
@@ -42,6 +45,7 @@ export default function Game({
         description: error?.data.message,
         status: "error",
       });
+      setTarget(-1);
     }
   };
   return wasOpen ? (
@@ -55,6 +59,7 @@ export default function Game({
                   isOpen={wasOpen[index] !== -1 ? true : false}
                   key={index}
                   value={index}
+                  isLoading={target === index ? true : false}
                   onClick={() => handleOpen(index)}
                   itemId={wasOpen[index]}
                 />

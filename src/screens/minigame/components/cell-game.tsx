@@ -4,11 +4,11 @@ import React from "react";
 type Props = {
   isOpen: boolean;
   itemId?: number;
-  value: number;
+  value?: number;
   onClick: any;
+  isLoading: boolean;
 };
 
-enum ItemID {}
 const generateItem = (itemId: number | undefined) => {
   switch (itemId) {
     case 0:
@@ -22,23 +22,39 @@ const generateItem = (itemId: number | undefined) => {
     case 4:
       return "/assets/big-gold.svg";
     case 5:
-       return "/assets/party-popper.svg"
+      return "/assets/party-popper.svg";
+    case 100:
+      return "/assets/people.svg";
     default:
       break;
   }
 };
-export default function Cell({ isOpen, itemId, value, onClick }: Props) {
+export default function Cell({
+  isOpen,
+  itemId,
+  value,
+  onClick,
+  isLoading,
+}: Props) {
   return !isOpen ? (
-    <Box
+    <Button
       borderRadius={18}
       width={50}
       height={50}
+      isLoading={isLoading}
       onClick={onClick}
       background={"linear-gradient(225deg, #2b2f38, #24282f);"}
       boxShadow={"-5px 5px 12px #22252c, 5px -5px 12px #2e333c;"}
       _active={{
         background: "#282c34",
         boxShadow: "inset -5px 5px 12px #22252c, inset 5px -5px 12px #2e333c;",
+      }}
+      _loading={{
+        background: "#282c34",
+        boxShadow: "inset -5px 5px 12px #22252c, inset 5px -5px 12px #2e333c;",
+      }}
+      _focus={{
+        outline: 0,
       }}
     />
   ) : (

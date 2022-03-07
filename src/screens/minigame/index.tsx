@@ -30,7 +30,8 @@ import BuyTurn from "./components/buy-turn";
 import ConnectWallet from "./components/connect-wallet";
 import Game from "./components/game";
 import SocketIOClient, { Socket } from "socket.io-client";
-import { baseUrl, getMiniGameCommon } from "./services/api.service";
+import { baseUrl, getMiniGameCommon, getHistory } from "./services/api.service";
+import { beautifyAddress } from "../../utils";
 type Props = {};
 
 export default function MiniGameScreen() {
@@ -38,6 +39,7 @@ export default function MiniGameScreen() {
   const [socket, setSocket] = useState<Socket | undefined>();
   const [totalSupply, setTotalSupply] = useState<string | undefined>("0");
   const [wasOpen, setWasOpen] = useState<number[] | undefined>([]);
+  const [history, setHistory] = useState<any[]>([]);
   const toast = useToast();
   const {
     minesweeperContract,
@@ -48,17 +50,34 @@ export default function MiniGameScreen() {
 
   const updateCell = (payload: any) => {
     setWasOpen(payload?.was_open);
+    setTotalSupply(payload?.total_supply);
   };
-  const updateHistory = (payload: any) => {};
+  const updateHistory = (payload: any) => {
+    history.unshift(payload);
+    if (history.length > 4) {
+      history.slice(0, 4);
+    }
+    console.log(history);
+    setHistory(history);
+  };
   const updateTotalSupply = (payload: any) => {
     setTotalSupply(payload.balance);
   };
   const _getData = async () => {
     try {
       let response = await getMiniGameCommon();
+
       if (response) {
         setTotalSupply(response?.total_supply);
         setWasOpen(response?.was_open);
+      }
+      let history = await getHistory();
+      if (history) {
+        if (history.length > 5) {
+          setHistory(history.slice(0, 4));
+        } else {
+          setHistory(history);
+        }
       }
     } catch (err: any) {
       toast({
@@ -175,29 +194,34 @@ export default function MiniGameScreen() {
               Open history
             </Text>
             <Stack spacing={4}>
-              <Box
-                bg="white"
-                borderRadius={"lg"}
-                height={"4.6rem"}
-                width={"100%"}
-                padding={3}
-                display="flex"
-                alignItems={"center"}
-                gap={4}
-              >
-                <Avatar
-                  src={`https://avatars.dicebear.com/api/croodles-neutral/${account}.svg`}
-                />
+              {history.length > 0 &&
+                history?.map((value, index) => {
+                  return (
+                    <Box
+                      bg="white"
+                      borderRadius={"lg"}
+                      height={"4.6rem"}
+                      width={"100%"}
+                      padding={3}
+                      display="flex"
+                      alignItems={"center"}
+                      gap={4}
+                    >
+                      <Avatar
+                        src={`https://avatars.dicebear.com/api/croodles-neutral/${value?.address}.svg`}
+                      />
 
-                <Stack spacing={0}>
-                  <Text fontSize={12} letterSpacing={0.5}>
-                    0x1e3e...daqe
-                  </Text>
-                  <Text fontSize={13} fontWeight={"medium"}>
-                    you have received 1% of the total supply
-                  </Text>
-                </Stack>
-              </Box>
+                      <Stack spacing={0}>
+                        <Text fontSize={12} letterSpacing={0.5}>
+                          {beautifyAddress(value?.address, 6, 4)}
+                        </Text>
+                        <Text fontSize={13} fontWeight={"medium"}>
+                          {value?.message}
+                        </Text>
+                      </Stack>
+                    </Box>
+                  );
+                })}
             </Stack>
           </Box>
         </VStack>
