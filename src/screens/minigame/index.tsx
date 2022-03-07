@@ -24,7 +24,7 @@ import {
 import { useMetaMask } from "metamask-react";
 import React, { useEffect, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
-import useContract from "../../hooks/use-contract";
+import useContract, { MINESWEEPER_CONTRACT } from "../../hooks/use-contract";
 import { wei2ether } from "../../utils";
 import BuyTurn from "./components/buy-turn";
 import ConnectWallet from "./components/connect-wallet";
@@ -114,10 +114,11 @@ export default function MiniGameScreen() {
           fontWeight={"bold"}
           fontSize={30}
           letterSpacing={"0.05rem"}
-          marginBottom={"30px"}
+         
         >
           Minesweeper 100
         </Text>
+        <Text color="white" marginBottom={30}>{MINESWEEPER_CONTRACT}</Text>
         <Game
           wasOpen={wasOpen}
           socket={socket}
