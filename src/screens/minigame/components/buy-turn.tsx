@@ -22,7 +22,7 @@ import React, { useState } from "react";
 import { FaCoins, FaShoppingBag } from "react-icons/fa";
 import { Socket } from "socket.io-client";
 import { Minesweeper } from "../../../contracts/Minesweeper";
-import useContract from "../../../hooks/use-contract";
+import useContract, { MINESWEEPER_CONTRACT } from "../../../hooks/use-contract";
 import { wei2ether } from "../../../utils";
 
 type Props = {
@@ -56,7 +56,7 @@ export default function BuyTurn({
       let txr = await tx?.wait();
       if (txr) {
         updateTurnOfAccount();
-        socket?.emit("SEND_TOTAL_SUPPLY", { eventId: 1 });
+        socket?.emit("SEND_TOTAL_SUPPLY", { eventId: MINESWEEPER_CONTRACT });
         setLoading(false);
       }
     } catch (error: any) {
@@ -81,7 +81,7 @@ export default function BuyTurn({
       >
         Buy turn
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Buy</ModalHeader>

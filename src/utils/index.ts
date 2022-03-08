@@ -8,6 +8,9 @@ export const wei2ether = (num: number | any) => {
     return "";
   }
 };
+export const beautifyNumber = (num: string | undefined) => {
+    if(num) return parseFloat(num).toFixed(2);
+}
 export const beautifyAddress = (
   address: string | null | undefined,
   start: number,

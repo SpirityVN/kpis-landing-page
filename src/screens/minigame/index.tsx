@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Avatar,
   Box,
   Button,
@@ -31,7 +33,8 @@ import ConnectWallet from "./components/connect-wallet";
 import Game from "./components/game";
 import SocketIOClient, { Socket } from "socket.io-client";
 import { baseUrl, getMiniGameCommon, getHistory } from "./services/api.service";
-import { beautifyAddress } from "../../utils";
+import { beautifyAddress, beautifyNumber } from "../../utils";
+import Document from "./components/document";
 type Props = {};
 
 export default function MiniGameScreen() {
@@ -46,39 +49,27 @@ export default function MiniGameScreen() {
     priceOfTurn,
     turnOfAccount,
     updateTurnOfAccount,
+    statusContract,
   } = useContract(account as string);
 
   const updateCell = (payload: any) => {
     setWasOpen(payload?.was_open);
     setTotalSupply(payload?.total_supply);
   };
-  const updateHistory = (payload: any) => {
-    history.unshift(payload);
-    if (history.length > 4) {
-      history.slice(0, 4);
-    }
-    console.log(history);
-    setHistory(history);
-  };
+ 
   const updateTotalSupply = (payload: any) => {
     setTotalSupply(payload.balance);
   };
   const _getData = async () => {
     try {
-      let response = await getMiniGameCommon();
+      let response = await getMiniGameCommon(MINESWEEPER_CONTRACT);
 
       if (response) {
         setTotalSupply(response?.total_supply);
         setWasOpen(response?.was_open);
       }
       let history = await getHistory();
-      if (history) {
-        if (history.length > 5) {
-          setHistory(history.slice(0, 4));
-        } else {
-          setHistory(history);
-        }
-      }
+      history && setHistory(history);
     } catch (err: any) {
       toast({
         title: "Network error.",
@@ -86,6 +77,10 @@ export default function MiniGameScreen() {
         status: "error",
       });
     }
+  };
+  const updateHistory = (payload: any) => {
+    let _history = [payload, ...history];
+    setHistory([..._history]);
   };
   React.useEffect(() => {
     let socket = SocketIOClient(baseUrl, {
@@ -114,17 +109,33 @@ export default function MiniGameScreen() {
           fontWeight={"bold"}
           fontSize={30}
           letterSpacing={"0.05rem"}
-         
         >
           Minesweeper 100
         </Text>
-        <Text color="white" marginBottom={30}>{MINESWEEPER_CONTRACT}</Text>
-        <Game
-          wasOpen={wasOpen}
-          socket={socket}
-          minesweeperContract={minesweeperContract}
-          updateTurnOfAccount={updateTurnOfAccount}
-        />
+        <Text color="white" marginBottom={30}>
+          {MINESWEEPER_CONTRACT}
+        </Text>
+        {account && (
+          <Game
+            wasOpen={wasOpen}
+            socket={socket}
+            minesweeperContract={minesweeperContract}
+            updateTurnOfAccount={updateTurnOfAccount}
+          />
+        )}
+        {!account && (
+          <>
+            <Image
+              src="/assets/sleeping-face.svg"
+              width={"100px"}
+              marginBottom={"30px"}
+            />
+            <Alert status="warning" width={"29%"} borderRadius={"xl"}>
+              <AlertIcon />
+              Please connect wallet.
+            </Alert>
+          </>
+        )}
       </GridItem>
       <GridItem colSpan={1}>
         <VStack
@@ -133,7 +144,16 @@ export default function MiniGameScreen() {
           alignItems={"flex-end"}
           height={"100%"}
         >
-          <ConnectWallet />
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            width={"100%"}
+          >
+            <Document />
+            <ConnectWallet />
+          </Box>
+
           <Box
             borderWidth="1px"
             borderRadius="lg"
@@ -169,9 +189,18 @@ export default function MiniGameScreen() {
           >
             <Stat color={"white"}>
               <StatLabel>Total supply</StatLabel>
-              <StatNumber>{wei2ether(totalSupply)} BNB</StatNumber>
+              <StatNumber>
+                {beautifyNumber(wei2ether(totalSupply))} BNB
+              </StatNumber>
             </Stat>
-            <Image src="/assets/dizzy-face.svg" width={"50px"} />
+            <Stat color={"white"}>
+              <StatLabel>Game status</StatLabel>
+              <StatNumber>{statusContract ? "PAUSED" : "RUNNING"}</StatNumber>
+            </Stat>
+            <Stat color={"white"}>
+              <StatLabel>Expected price</StatLabel>
+              <StatNumber>10 BNB</StatNumber>
+            </Stat>
           </Box>
           <Box
             borderWidth="1px"
@@ -192,13 +221,14 @@ export default function MiniGameScreen() {
               textTransform={"uppercase"}
               marginBottom={"20px"}
             >
-              Open history
+              History
             </Text>
             <Stack spacing={4}>
               {history.length > 0 &&
-                history?.map((value, index) => {
+                history.slice(0,4)?.map((value, index) => {
                   return (
                     <Box
+                      key={index}
                       bg="white"
                       borderRadius={"lg"}
                       height={"4.6rem"}

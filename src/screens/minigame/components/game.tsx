@@ -2,6 +2,7 @@ import { Stack, useToast, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Socket } from "socket.io-client";
 import { Minesweeper } from "../../../contracts/Minesweeper";
+import { MINESWEEPER_CONTRACT } from "../../../hooks/use-contract";
 import Cell from "./cell-game";
 import { pattern } from "./pattern";
 
@@ -32,7 +33,7 @@ export default function Game({
         );
         console.log(openCellEvent);
         socket?.emit("SEND_OPEN_CELL", {
-          eventId: 1,
+          eventId: MINESWEEPER_CONTRACT,
           event: openCellEvent,
         });
         updateTurnOfAccount();
@@ -42,7 +43,7 @@ export default function Game({
       toast({
         position: "top-right",
         title: "Error from contract!",
-        description: error?.data.message,
+        description: error?.data.message && error.data.message,
         status: "error",
       });
       setTarget(-1);

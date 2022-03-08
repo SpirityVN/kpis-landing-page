@@ -10,6 +10,7 @@ export default function useContract(account: string) {
     Minesweeper | undefined
   >(undefined);
   const [priceOfTurn, setPriceOfTurn] = useState<any>(undefined);
+  const [statusContract, setStatusContract] = useState<boolean | undefined>(undefined);
   const [turnOfAccount, setTurnOfAccount] = useState<number | undefined>(
     undefined
   );
@@ -30,10 +31,12 @@ export default function useContract(account: string) {
     const _price = await _contract.priceOfTurn();
     const _turn = await _contract.turns(account as string);
     const _totalSupply = await _contract.getBalance();
+    const _statusContract = await _contract.paused();
     setTurnOfAccount(_turn);
     setPriceOfTurn(_price);
     setMinesweeperContract(_contract);
     setTotalSupply(_totalSupply);
+    setStatusContract(_statusContract);
   };
   React.useEffect(() => {
     if (account) {
@@ -46,5 +49,6 @@ export default function useContract(account: string) {
     turnOfAccount,
     updateTurnOfAccount,
     totalSupply,
+    statusContract
   };
 }

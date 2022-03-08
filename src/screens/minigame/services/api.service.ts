@@ -8,11 +8,11 @@ export const baseUrl =
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
       ? ENVIRONMENTS.DEVELOPMENT
       : ENVIRONMENTS.PRODUCTION;
-export async function getMiniGameCommon(): Promise<any> {
+export async function getMiniGameCommon(eventId: string): Promise<any> {
     try {
         let respone = await axios({
             baseURL: baseUrl,
-            url: '/minigame/1',
+            url: `/minigame/${eventId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

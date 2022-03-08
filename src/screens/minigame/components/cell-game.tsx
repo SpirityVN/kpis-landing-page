@@ -24,7 +24,7 @@ const generateItem = (itemId: number | undefined) => {
     case 5:
       return "/assets/party-popper.svg";
     case 100:
-      return "/assets/people.svg";
+      return "/assets/dizzy-face.svg";
     default:
       break;
   }
