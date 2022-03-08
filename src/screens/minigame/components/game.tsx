@@ -1,5 +1,5 @@
 import { Stack, useToast, VStack, Wrap, WrapItem } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import { Minesweeper } from "../../../contracts/Minesweeper";
 import { MINESWEEPER_CONTRACT } from "../../../hooks/use-contract";
@@ -22,6 +22,7 @@ export default function Game({
 }: Props) {
   const toast = useToast();
   const [target, setTarget] = useState<number>(-1);
+  const [boxSize, setBoxSize] = useState<number>(1);
   const handleOpen = async (key: number) => {
     try {
       setTarget(key);
@@ -49,6 +50,21 @@ export default function Game({
       setTarget(-1);
     }
   };
+  const handleResize = () => {
+    if (window.innerHeight < 821) {
+      setBoxSize((window.innerHeight * 40) / 821);
+    } else {
+      setBoxSize((window.innerHeight * 50) / 821);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    if (window.innerHeight < 821) {
+      setBoxSize((window.innerHeight * 40) / 821);
+    } else {
+      setBoxSize((window.innerHeight * 50) / 821);
+    }
+  }, []);
   return wasOpen ? (
     <Stack spacing={4}>
       {row.map((value) => {
@@ -57,6 +73,7 @@ export default function Game({
             {pattern.slice(value * 10, value * 10 + 10).map((index) => {
               return (
                 <Cell
+                  size={`${boxSize}px`}
                   isOpen={wasOpen[index] !== -1 ? true : false}
                   key={index}
                   value={index}
