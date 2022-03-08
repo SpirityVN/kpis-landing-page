@@ -23,8 +23,8 @@ const MiniGame: NextPage = () => {
                 method: "wallet_addEthereumChain",
                 params: [
                   {
-                    chainName: "Polygon Mainnet",
-                    chainId: ethers.utils.hexValue(chainId),
+                    chainName: "Binance Smart Chain testnet",
+                    chainId: `0x${Number(chainId).toString(16)}`,
                     nativeCurrency: {
                       name: "Binance Smart Chain Testnet",
                       decimals: 18,
@@ -34,15 +34,16 @@ const MiniGame: NextPage = () => {
                   },
                 ],
               });
+            } else {
+              toast({
+                title: "Metamask error.",
+                description: err?.message,
+                status: "error",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+              });
             }
-            toast({
-              title: "Metamask error.",
-              description: err?.message,
-              status: "error",
-              duration: 3000,
-              position: "top-right",
-              isClosable: true,
-            });
           });
       }
     } catch (err: any) {
@@ -83,7 +84,12 @@ const MiniGame: NextPage = () => {
           )}
         </Box>
       ) : (
-        <Text display="flex" justifyContent={"center"} alignItems={"center"} height={"100vh"}>
+        <Text
+          display="flex"
+          justifyContent={"center"}
+          alignItems={"center"}
+          height={"100vh"}
+        >
           {" "}
           Sorry, We&apos;re trying to build the interface for mobile device
         </Text>
