@@ -198,7 +198,7 @@ export default function MiniGameScreen() {
               <StatNumber>{statusContract ? "PAUSED" : "RUNNING"}</StatNumber>
             </Stat>
             <Stat color={"white"}>
-              <StatLabel>Expected price</StatLabel>
+              <StatLabel>Expected supply</StatLabel>
               <StatNumber>10 BNB</StatNumber>
             </Stat>
           </Box>
