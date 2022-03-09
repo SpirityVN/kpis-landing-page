@@ -7,7 +7,7 @@ type Props = {
   value?: number;
   onClick: any;
   isLoading: boolean;
-  size: number | string;
+  size: number;
 };
 
 const generateItem = (itemId: number | undefined) => {
@@ -40,9 +40,9 @@ export default function Cell({
 }: Props) {
   return !isOpen ? (
     <Button
-      borderRadius={18}
-      width={size}
-      height={size}
+      borderRadius={`${size * 18 / 50}px`}
+      width={`${size}px`}
+      height={`${size}px`}
       isLoading={isLoading}
       onClick={onClick}
       background={"linear-gradient(225deg, #2b2f38, #24282f);"}
@@ -62,8 +62,8 @@ export default function Cell({
   ) : (
     <Box
       borderRadius={18}
-      width={size}
-      height={size}
+      width={`${size}px`}
+      height={`${size}px`}
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}

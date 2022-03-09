@@ -52,7 +52,7 @@ export default function Game({
   };
   const handleResize = () => {
     if (window.innerHeight < 821) {
-      setBoxSize((window.innerHeight * 40) / 821);
+      setBoxSize((window.innerHeight * 47) / 821);
     } else {
       setBoxSize((window.innerHeight * 50) / 821);
     }
@@ -60,7 +60,7 @@ export default function Game({
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     if (window.innerHeight < 821) {
-      setBoxSize((window.innerHeight * 40) / 821);
+      setBoxSize((window.innerHeight * 47) / 821);
     } else {
       setBoxSize((window.innerHeight * 50) / 821);
     }
@@ -73,7 +73,7 @@ export default function Game({
             {pattern.slice(value * 10, value * 10 + 10).map((index) => {
               return (
                 <Cell
-                  size={`${boxSize}px`}
+                  size={boxSize}
                   isOpen={wasOpen[index] !== -1 ? true : false}
                   key={index}
                   value={index}
