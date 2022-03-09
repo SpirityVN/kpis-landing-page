@@ -37,7 +37,7 @@ export default function Document({}: Props) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Rule</ModalHeader>
+          <ModalHeader>Rule: Open the box to receive gifts</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack divider={<StackDivider borderColor="black" opacity={0.1} />}>

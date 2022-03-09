@@ -27,6 +27,7 @@ import {
 import { useMetaMask } from "metamask-react";
 import React, { useEffect, useState } from "react";
 import { FaGithub, FaShoppingBag } from "react-icons/fa";
+import { SiHiveBlockchain } from "react-icons/si";
 import useContract, { MINESWEEPER_CONTRACT } from "../../hooks/use-contract";
 import { wei2ether } from "../../utils";
 import BuyTurn from "./components/buy-turn";
@@ -97,6 +98,9 @@ export default function MiniGameScreen() {
   const gotoGithub = () => {
     window.open("https://github.com/SpirityVN/minesweeper-contract");
   }
+  const gotoContract = () => {
+    window.open(`https://testnet.bscscan.com/address/${MINESWEEPER_CONTRACT}`)
+  }
   return (
     <Grid templateColumns="repeat(3, 1fr)" height={"100%"} padding={10}>
       <GridItem
@@ -106,18 +110,6 @@ export default function MiniGameScreen() {
         justifyContent="center"
         alignItems={"center"}
       >
-        <Text
-          textTransform={"uppercase"}
-          color="white"
-          fontWeight={"bold"}
-          fontSize={30}
-          letterSpacing={"0.05rem"}
-        >
-          Minesweeper 100
-        </Text>
-        <Text color="white" marginBottom={30}>
-          {MINESWEEPER_CONTRACT}
-        </Text>
         {account && (
           <Game
             wasOpen={wasOpen}
@@ -160,6 +152,13 @@ export default function MiniGameScreen() {
                 marginRight={2}
                 aria-label="Smart contract"
                 icon={<FaGithub />}
+              />
+               <IconButton
+                onClick={() => gotoContract()}
+                colorScheme="gray"
+                marginRight={2}
+                aria-label="Smart contract"
+                icon={<SiHiveBlockchain/>}
               />
               <Document />
             </Box>
