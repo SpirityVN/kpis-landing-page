@@ -58,6 +58,14 @@ export default function BuyTurn({
         updateTurnOfAccount();
         socket?.emit("SEND_TOTAL_SUPPLY", { eventId: MINESWEEPER_CONTRACT });
         setLoading(false);
+        toast({
+          title: "Buy turn successful",
+          description: 'Buy more, my friend.',
+          status: "success",
+          duration: 3000,
+          position: "top-right",
+          isClosable: true,
+        });
       }
     } catch (error: any) {
       setLoading(false);
