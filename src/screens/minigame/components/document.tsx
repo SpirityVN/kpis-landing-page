@@ -40,9 +40,7 @@ export default function Document({}: Props) {
           <ModalHeader>Rule</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Stack
-              divider={<StackDivider borderColor="black" opacity={0.1} />}
-            >
+            <Stack divider={<StackDivider borderColor="black" opacity={0.1} />}>
               <Flex>
                 <Image src="/assets/bomb.svg" />
                 <Box ml="3">
@@ -58,90 +56,91 @@ export default function Document({}: Props) {
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/party-popper.svg" width={30}/>
+                <Image src="/assets/party-popper.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Golden Chick
+                    Bubble
                     <Badge ml="1" colorScheme="pink">
                       x20
                     </Badge>
                   </Text>
-                  <Text fontSize="sm">
-                    You only lose 1 turn.
-                  </Text>
+                  <Text fontSize="sm">You will only lose one turn.</Text>
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/dizzy-face.svg" width={30}/>
+                <Image src="/assets/dizzy-face.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Richkid
-                    <Badge ml="1" bgGradient='linear(to-l, #7928CA, #FF0080)' color={"white"}>
+                    Winner
+                    <Badge
+                      ml="1"
+                      bgGradient="linear(to-l, #7928CA, #FF0080)"
+                      color={"white"}
+                    >
                       x1
                     </Badge>
                   </Text>
                   <Text fontSize="sm">
-                    You have received 100% of the total supply.
+                    You will receive 100% of the total supply.
                   </Text>
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/ethereum-coin.svg" width={30}/>
+                <Image src="/assets/ethereum-coin.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Gold
+                    Penny
                     <Badge ml="1" colorScheme="green">
                       x13
                     </Badge>
                   </Text>
                   <Text fontSize="sm">
-                    You have received 1% of the total supply.
+                    You will receive 1% of the total supply.
                   </Text>
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/ethereum-coin-x2.svg" width={30}/>
+                <Image src="/assets/ethereum-coin-x2.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Gold Gold
+                    Double a Penny
                     <Badge ml="1" colorScheme="green">
                       x5
                     </Badge>
                   </Text>
                   <Text fontSize="sm">
-                    You have received 2% of the total supply.
+                    You will receive 2% of the total supply.
                   </Text>
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/gold.svg" width={30}/>
+                <Image src="/assets/gold.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Big Gold
+                    Gold Bar
                     <Badge ml="1" colorScheme="green">
                       x8
                     </Badge>
                   </Text>
                   <Text fontSize="sm">
-                    You have received 3% of the total supply.
+                    You will receive 3% of the total supply.
                   </Text>
                 </Box>
               </Flex>
               <Flex>
-                <Image src="/assets/big-gold.svg" width={30}/>
+                <Image src="/assets/big-gold.svg" width={30} />
                 <Box ml="3">
                   <Text fontWeight="bold">
-                    Ggorgeous
+                    Gold Mine
                     <Badge ml="1" colorScheme="green">
                       x3
                     </Badge>
                   </Text>
                   <Text fontSize="sm">
-                    You have received 4% of the total supply.
+                    You will receive 4% of the total supply.
                   </Text>
                 </Box>
               </Flex>
-             
             </Stack>
 
             {/* 13 Giai 1

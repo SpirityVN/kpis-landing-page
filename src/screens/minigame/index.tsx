@@ -9,6 +9,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  IconButton,
   Image,
   Stack,
   StackDivider,
@@ -25,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { useMetaMask } from "metamask-react";
 import React, { useEffect, useState } from "react";
-import { FaShoppingBag } from "react-icons/fa";
+import { FaGithub, FaShoppingBag } from "react-icons/fa";
 import useContract, { MINESWEEPER_CONTRACT } from "../../hooks/use-contract";
 import { wei2ether } from "../../utils";
 import BuyTurn from "./components/buy-turn";
@@ -56,7 +57,7 @@ export default function MiniGameScreen() {
     setWasOpen(payload?.was_open);
     setTotalSupply(payload?.total_supply);
   };
- 
+
   const updateTotalSupply = (payload: any) => {
     setTotalSupply(payload.balance);
   };
@@ -93,7 +94,9 @@ export default function MiniGameScreen() {
     socket.on("RECEIVER_TOTAL_SUPPLY", updateTotalSupply);
     setSocket(socket);
   }, []);
-
+  const gotoGithub = () => {
+    window.open("https://github.com/SpirityVN/minesweeper-contract");
+  }
   return (
     <Grid templateColumns="repeat(3, 1fr)" height={"100%"} padding={10}>
       <GridItem
@@ -124,17 +127,17 @@ export default function MiniGameScreen() {
           />
         )}
         {!account && (
-          <>
+          <Stack justifyContent={"center"} alignItems={"center"}>
             <Image
               src="/assets/sleeping-face.svg"
               width={"100px"}
               marginBottom={"30px"}
             />
-            <Alert status="warning" width={"29%"} borderRadius={"xl"}>
+            <Alert status="warning" borderRadius={"xl"}>
               <AlertIcon />
               Please connect wallet.
             </Alert>
-          </>
+          </Stack>
         )}
       </GridItem>
       <GridItem colSpan={1}>
@@ -150,7 +153,17 @@ export default function MiniGameScreen() {
             alignItems={"center"}
             width={"100%"}
           >
-            <Document />
+            <Box>
+              <IconButton
+                onClick={() => gotoGithub()}
+                colorScheme="gray"
+                marginRight={2}
+                aria-label="Smart contract"
+                icon={<FaGithub />}
+              />
+              <Document />
+            </Box>
+
             <ConnectWallet />
           </Box>
 
@@ -225,7 +238,7 @@ export default function MiniGameScreen() {
             </Text>
             <Stack spacing={4}>
               {history.length > 0 &&
-                history.slice(0,4)?.map((value, index) => {
+                history.slice(0, 4)?.map((value, index) => {
                   return (
                     <Box
                       key={index}
