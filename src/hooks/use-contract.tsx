@@ -3,7 +3,7 @@ import { Minesweeper__factory } from "../contracts/factories/Minesweeper__factor
 import { Minesweeper } from "../contracts/Minesweeper";
 import { BigNumberish, ethers } from "ethers";
 
-export const MINESWEEPER_CONTRACT = "0x944aF3899cF7c857417469c218d007adC13376a4";
+export const MINESWEEPER_CONTRACT = "0xC56989b1117A219ADA00E213776093B098101a59";
 
 export default function useContract(account: string) {
   const [minesweeperContract, setMinesweeperContract] = useState<
