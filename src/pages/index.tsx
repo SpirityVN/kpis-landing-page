@@ -53,6 +53,9 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>King playing in the space</title>
+        <meta name="robots" content="follow, index" />
+        <meta property="og:type" content={"website"} />
+        <meta property="og:site_name" content={"King playing in the space"} />
         <meta
           name="description"
           content="King playing in the space, well well well"
@@ -62,7 +65,21 @@ const Home: NextPage = () => {
           property="og:description"
           content="In the 22nd century, people began to move in space more easily. So this is an opportunity for them to exploit resources on other planets and build new societies. To do that, each person or a group of people (called a Guild) is required to mine resources on earth or buy them from other people or groups of miners through the market to build spaceships and launch them into space. Sure, when you discover a new planet, you will be rewarded with ESPACE tokens."
         />
-        <meta property="og:image" content="/thumbnail.jpeg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={"https://kpis-game.vercel.app/"} />
+        <meta name="twitter:title" content={"King playing in the space"} />
+        <meta
+          name="twitter:description"
+          content={
+            "In the 22nd century, people began to move in space more easily. So this is an opportunity for them to exploit resources on other planets and build new societies. To do that, each person or a group of people (called a Guild) is required to mine resources on earth or buy them from other people or groups of miners through the market to build spaceships and launch them into space. Sure, when you discover a new planet, you will be rewarded with ESPACE tokens."
+          }
+        />
+        <meta name="twitter:image" content={"/thumbnail.jpeg"} />
+        <meta
+          property="og:image"
+          content="/thumbnail.jpeg"
+          key="/thumbnail.jpeg"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
