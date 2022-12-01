@@ -74,11 +74,7 @@ const Home: NextPage = () => {
           }
         />
         <meta name="twitter:image" content={"/thumbnail.jpeg"} />
-        <meta
-          property="og:image"
-          content="/thumbnail.jpeg"
-          key="/thumbnail.jpeg"
-        />
+        <meta property="og:image" content="/thumbnail.jpeg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
