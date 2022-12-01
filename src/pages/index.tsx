@@ -53,6 +53,7 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>King playing in the space</title>
+        <meta name="robots" content="follow, index" />
         <meta property="og:type" content={"website"} />
         <meta property="og:site_name" content={"King playing in the space"} />
         <meta
@@ -74,7 +75,11 @@ const Home: NextPage = () => {
           }
         />
         <meta name="twitter:image" content={"/thumbnail.jpeg"} />
-        <meta property="og:image" content="/thumbnail.jpeg" />
+        <meta
+          property="og:image"
+          content="/thumbnail.jpeg"
+          key="/thumbnail.jpeg"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
